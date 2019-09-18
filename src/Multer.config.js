@@ -1,6 +1,5 @@
 const multer = require('multer');
-const {TesseractWorker} = require('tesseract.js');
-const worker = new TesseractWorker();
+
 
 const storage = multer.diskStorage({
   destination:(req,file,cb) => {
