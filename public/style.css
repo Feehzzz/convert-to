@@ -1,9 +1,18 @@
+.btn {
+  display: block;
+  margin-top: 20px;
+}
 .upload {
   border-radius: 4px;
-  padding: 30px;
-  text-align: center;
   border: 1px dashed #ddd;
   color: #999;
-  margin-top: 50px;
   cursor: pointer;
+  margin-top: 50px;
+  padding: 30px;
+  width: 100%;
 }
+
+.container {
+  margin-top: 20px;
+}
+

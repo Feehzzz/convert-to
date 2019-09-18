@@ -9,23 +9,27 @@ routes.get('/', (req, res) => {
   res.render('index.html')
 });
 
-routes.post('/upload/:lang', (req,res) => {
-  const { lang } = req.params
+routes.post('/upload', (req,res) => {
+  
   upload(req,res,err => {
     fs.readFile(`./src/tmp/uploads/${req.file.originalname}`, (err,data) => {
       if(err) return console.log('Something went wrong', err);
       worker
-      .recognize(data, lang, {create_pdf:'1'})
+      .recognize(data, 'eng', {tessjs_create_pdf:'1'})
       .progress(progress => {
         console.log(progress);
         
       })
       .then(result => {
-        res.send(result.text)
+        res.redirect('/download')
       })
       .finally(() => worker.terminate());
     });
   });
+})
+routes.get('/download', (req,res) => {
+  const file = `${__dirname}/../tesseract.js-ocr-result.pdf`;
+  res.download(file)
 })
 
 
