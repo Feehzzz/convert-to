@@ -12,7 +12,7 @@ routes.get('/', (req, res) => {
 routes.post('/upload', (req,res) => {
   
   upload(req,res,err => {
-    fs.readFile(`./src/tmp/uploads/${req.file.originalname}`, (err,data) => {
+    fs.readFile(`./tmp/uploads/${req.file.originalname}`, (err,data) => {
       if(err) return console.log('Something went wrong', err);
       worker
       .recognize(data, 'eng', {tessjs_create_pdf:'1'})
@@ -20,7 +20,7 @@ routes.post('/upload', (req,res) => {
         console.log(progress);
         
       })
-      .then(result => {
+      .then(() => {
         res.redirect('/download')
       })
       .finally(() => worker.terminate());
@@ -29,7 +29,9 @@ routes.post('/upload', (req,res) => {
 })
 routes.get('/download', (req,res) => {
   const file = `${__dirname}/../tesseract.js-ocr-result.pdf`;
+  
   res.download(file)
+  
 })
 
 
